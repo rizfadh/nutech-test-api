@@ -1,8 +1,15 @@
 import { Router } from 'express';
-import { balanceGet, topUpUserBalancePost } from '../../controllers/transactionController.js';
+import {
+    balanceGet,
+    topUpUserBalancePost,
+    userTransactionPost,
+} from '../../controllers/transactionController.js';
 import authenticate from '../../middlewares/authenticate.js';
 import requestValidation from '../../middlewares/requestValidation.js';
-import { topUpUserBalanceSchema } from '../../validations/transactionValidation.js';
+import {
+    topUpUserBalanceSchema,
+    userTransactionSchema,
+} from '../../validations/transactionValidation.js';
 
 const transactionRoutes = Router();
 
@@ -12,6 +19,12 @@ transactionRoutes.post(
     authenticate,
     requestValidation(topUpUserBalanceSchema),
     topUpUserBalancePost
+);
+transactionRoutes.post(
+    '/transaction',
+    authenticate,
+    requestValidation(userTransactionSchema),
+    userTransactionPost
 );
 
 export default transactionRoutes;

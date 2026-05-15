@@ -15,4 +15,12 @@ const topUpUserBalanceSchema = z.object({
     }),
 });
 
-export { topUpUserBalanceSchema };
+const userTransactionSchema = z.object({
+    body: z.object({
+        service_code: z.string(
+            JSON.stringify({ status: 102, message: 'Parameter service_code wajib diisi' })
+        ),
+    }),
+});
+
+export { topUpUserBalanceSchema, userTransactionSchema };
