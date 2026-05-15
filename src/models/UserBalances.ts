@@ -1,28 +1,20 @@
 import { DataTypes, fn } from 'sequelize';
 import sequelize from '../configurations/sequelize.js';
 
-const Services = sequelize.define(
-    'Services',
+const UserBalances = sequelize.define(
+    'UserBalances',
     {
         id: {
             type: DataTypes.SMALLINT,
             primaryKey: true,
             autoIncrement: true,
         },
-        code: {
-            type: DataTypes.STRING(50),
+        user_id: {
+            type: DataTypes.SMALLINT,
             allowNull: false,
         },
-        name: {
+        balance: {
             type: DataTypes.STRING(100),
-            allowNull: false,
-        },
-        icon_path: {
-            type: DataTypes.STRING(300),
-            allowNull: false,
-        },
-        tariff: {
-            type: DataTypes.DECIMAL(10),
             allowNull: false,
         },
         created_on: {
@@ -52,18 +44,13 @@ const Services = sequelize.define(
         },
     },
     {
-        tableName: 'services',
+        tableName: 'user_balances',
         timestamps: false,
         indexes: [
             {
-                name: 'idx_code',
+                name: 'idx_user_id',
                 unique: true,
-                fields: ['code'],
-            },
-            {
-                name: 'idx_name',
-                unique: false,
-                fields: ['name'],
+                fields: ['user_id'],
             },
             {
                 name: 'idx_created_by',
@@ -89,4 +76,4 @@ const Services = sequelize.define(
     }
 );
 
-export default Services;
+export default UserBalances;

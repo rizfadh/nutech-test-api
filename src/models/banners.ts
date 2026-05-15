@@ -57,9 +57,24 @@ const Banners = sequelize.define(
                 fields: ['name'],
             },
             {
+                name: 'idx_created_by',
+                unique: false,
+                fields: ['created_by'],
+            },
+            {
+                name: 'idx_updated_by',
+                unique: false,
+                fields: ['updated_by'],
+            },
+            {
                 name: 'idx_deleted_on',
                 unique: false,
                 fields: ['deleted_on'],
+            },
+            {
+                name: 'idx_deleted_by',
+                unique: false,
+                fields: ['deleted_by'],
             },
         ],
     }
