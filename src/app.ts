@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
-modelSync();
+// modelSync();
 
 app.use('/', express.static(path.join(process.cwd(), 'uploads/images')));
 app.use('/api/v1/membership', membershipRoutes);

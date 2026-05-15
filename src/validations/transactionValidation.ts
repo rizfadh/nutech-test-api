@@ -23,4 +23,11 @@ const userTransactionSchema = z.object({
     }),
 });
 
-export { topUpUserBalanceSchema, userTransactionSchema };
+const userTransactionHistorySchema = z.object({
+    query: z.object({
+        limit: z.coerce.number().optional(),
+        offset: z.coerce.number().optional(),
+    }),
+});
+
+export { topUpUserBalanceSchema, userTransactionSchema, userTransactionHistorySchema };

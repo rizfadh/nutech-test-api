@@ -3,6 +3,7 @@ import { QueryTypes } from 'sequelize';
 import { z } from 'zod';
 import type {
     topUpUserBalanceSchema,
+    userTransactionHistorySchema,
     userTransactionSchema,
 } from '../validations/transactionValidation.js';
 import error from '../utils/error.js';
@@ -249,4 +250,50 @@ const userTransaction = async ({
     return userTransactionResult[0];
 };
 
-export { getUserBalance, topUpUserBalance, userTransaction };
+type UserTransactionHistoryData = {
+    code: string;
+    type: string;
+    description: string;
+    total_amount: number;
+    created_on: Date;
+};
+
+const getUserTransactionHistory = async ({
+    email,
+    limit,
+    offset,
+}: z.infer<typeof userTransactionHistorySchema>['query'] & { email: string }) => {
+    const replacements: [string | number] = [email];
+
+    let query = `
+        select
+            ut.code,
+            ut.type,
+            ut.description,
+            ut.total_amount,
+            ut.created_on
+        from user_transactions as ut
+        inner join users as u on ut.user_id = u.id
+        where
+            u.email = ?
+            and ut.deleted_on is null
+        order by ut.created_on desc
+    `;
+
+    query += ` limit ?`;
+    replacements.push(limit ? Number(limit) : 9999999);
+
+    if (offset != null) {
+        query += ` offset ?`;
+        replacements.push(Number(offset));
+    }
+
+    const userTransactionHistoryResult = await sequelize.query<UserTransactionHistoryData>(query, {
+        replacements,
+        type: QueryTypes.SELECT,
+    });
+
+    return userTransactionHistoryResult;
+};
+
+export { getUserBalance, topUpUserBalance, userTransaction, getUserTransactionHistory };

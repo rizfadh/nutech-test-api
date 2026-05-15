@@ -2,12 +2,14 @@ import { Router } from 'express';
 import {
     balanceGet,
     topUpUserBalancePost,
+    userTransactionHistoryGet,
     userTransactionPost,
 } from '../../controllers/transactionController.js';
 import authenticate from '../../middlewares/authenticate.js';
 import requestValidation from '../../middlewares/requestValidation.js';
 import {
     topUpUserBalanceSchema,
+    userTransactionHistorySchema,
     userTransactionSchema,
 } from '../../validations/transactionValidation.js';
 
@@ -25,6 +27,12 @@ transactionRoutes.post(
     authenticate,
     requestValidation(userTransactionSchema),
     userTransactionPost
+);
+transactionRoutes.get(
+    '/transaction/history',
+    authenticate,
+    requestValidation(userTransactionHistorySchema),
+    userTransactionHistoryGet
 );
 
 export default transactionRoutes;
