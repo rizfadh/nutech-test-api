@@ -15,6 +15,7 @@ const sequelize = new Sequelize(env.DB_DATABASE, env.DB_USER, env.DB_PASSWORD, {
     },
     dialectOptions: {
         connectTimeout: 20000,
+        decimalNumbers: true,
     },
     pool: {
         max: 10,
