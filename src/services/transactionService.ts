@@ -28,7 +28,7 @@ const getUserBalance = async (email: string) => {
         type: QueryTypes.SELECT,
     });
 
-    const balanceData = balanceResult[0] || { balance: 0 }
+    const balanceData = balanceResult[0] || { balance: 0 };
 
     return balanceData;
 };
@@ -63,12 +63,12 @@ const topUpUserBalance = async ({
             on duplicate key update
                 balance = balance + values(balance),
                 updated_by = values(created_by),
-                updated_on = current_timestamp
+                updated_on = now()
         `;
 
         await sequelize.query(query, {
             replacements: [userId, top_up_amount, userId],
-            type: QueryTypes.UPDATE,
+            type: QueryTypes.INSERT,
             transaction,
         });
 
@@ -191,7 +191,9 @@ const userTransaction = async ({
 
         query = `
             update user_balances
-            set balance = balance - ?
+            set
+                balance = balance - ?,
+                updated_on = now()
             where user_id = ?
         `;
 

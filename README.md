@@ -1,5 +1,42 @@
+# ROUTES
+
+Base Url: https://nutech-test-api.up.railway.app
+
+Version: /api/v1
+
+Example: https://nutech-test-api.up.railway.app/api/v1/membership/registration
+
+### Membership Endpoint
+
+[POST] /membership/registration
+
+[POST] /membership/login
+
+[GET] /membership/profile
+
+[PUT] /membership/profile/update
+
+[PUT] /membership/profile/image
+
+### Information Endpoint
+
+[GET] /information/banner
+
+[GET] /information/service
+
+### Transaction Endpoint
+
+[GET] /transaction/balance
+
+[POST] /transaction/topup
+
+[POST] /transaction/transaction
+
+[GET] /transaction/transaction/history
+
 # DDL
-## nutech.users definition
+
+### nutech.users definition
 
 CREATE TABLE "users" (
   "id" smallint NOT NULL AUTO_INCREMENT,
@@ -16,7 +53,7 @@ CREATE TABLE "users" (
   KEY "idx_deleted_on" ("deleted_on")
 );
 
-## nutech.banners definition
+### nutech.banners definition
 
 CREATE TABLE "banners" (
   "id" smallint NOT NULL AUTO_INCREMENT,
@@ -40,7 +77,7 @@ CREATE TABLE "banners" (
   CONSTRAINT "banners_ibfk_3" FOREIGN KEY ("deleted_by") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-## nutech.services definition
+### nutech.services definition
 
 CREATE TABLE "services" (
   "id" smallint NOT NULL AUTO_INCREMENT,
@@ -66,7 +103,7 @@ CREATE TABLE "services" (
   CONSTRAINT "services_ibfk_3" FOREIGN KEY ("deleted_by") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-## nutech.user_balances definition
+### nutech.user_balances definition
 
 CREATE TABLE "user_balances" (
   "id" smallint NOT NULL AUTO_INCREMENT,
@@ -90,7 +127,7 @@ CREATE TABLE "user_balances" (
   CONSTRAINT "user_balances_ibfk_4" FOREIGN KEY ("deleted_by") REFERENCES "users" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-## nutech.user_transactions definition
+### nutech.user_transactions definition
 
 CREATE TABLE "user_transactions" (
   "id" smallint NOT NULL AUTO_INCREMENT,
